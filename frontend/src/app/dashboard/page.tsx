@@ -150,8 +150,9 @@ export default function Dashboard() {
   }, [router]);
 
   const fetchTrips = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
     try {
-      const res = await fetch(`${API}/api/trips`, { headers: authHeaders() });
+      const res = await fetch(`${API_URL}/api/trips`, { headers: authHeaders() });
       if (res.status === 401) { router.push('/login'); return; }
       if (res.ok) {
         const data = await res.json();
@@ -167,8 +168,9 @@ export default function Dashboard() {
 
   const onGenerate = async (data: TripForm) => {
     setGenerating(true);
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
     try {
-      const res = await fetch(`${API}/api/trips/generate`, {
+      const res = await fetch(`${API_URL}/api/trips/generate`, {
         method: 'POST',
         headers: authHeaders(),
         body: JSON.stringify(data),
@@ -192,8 +194,9 @@ export default function Dashboard() {
 
   const handleDeleteTrip = async (id: string) => {
     if (!confirm('Delete this trip memory?')) return;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
     try {
-      const res = await fetch(`${API}/api/trips/${id}`, { method: 'DELETE', headers: authHeaders() });
+      const res = await fetch(`${API_URL}/api/trips/${id}`, { method: 'DELETE', headers: authHeaders() });
       if (res.ok) {
         setTrips(trips.filter(t => t._id !== id));
         if (selectedTrip?._id === id) setSelectedTrip(trips[1] || null);
@@ -215,8 +218,9 @@ export default function Dashboard() {
     const updatedPacking = selectedTrip.packingList.map(item =>
       item._id === itemId ? { ...item, isPacked: !item.isPacked } : item
     );
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
     try {
-      const res = await fetch(`${API}/api/trips/${selectedTrip._id}`, {
+      const res = await fetch(`${API_URL}/api/trips/${selectedTrip._id}`, {
         method: 'PUT', headers: authHeaders(),
         body: JSON.stringify({ packingList: updatedPacking }),
       });
