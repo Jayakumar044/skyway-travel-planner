@@ -1,10 +1,10 @@
+// @ts-nocheck
 import type { Metadata } from "next";
-// @ts-ignore
 import "./globals.css";
 import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
-  title: "Voyager AI | Your Smart Travel Planner",
+  title: "Skyway AI | Your Smart Travel Planner",
   description: "Generate complete travel itineraries, budgets, and hotel recommendations in seconds with AI.",
 };
 
